@@ -1,0 +1,44 @@
+.NavBar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 100%;
+    padding-right : 20px;
+    padding-left : 20px;
+    background-color: rgb(139, 137, 137);
+    color: white;
+    
+}
+.NavBarList{
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.Card{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 70px;
+    padding: 50px;
+    justify-content: center;
+    
+}
+
+.CardList{
+        width: 340px;
+        background: #f3f3f3;
+        padding: 15px;
+        border-radius: 10px;
+        border: 2px solid black;
+        height: 700px;
+        
+        flex: col-4;
+        gap: 10px;
+     
+}
+
+.CardList img{
+    width: 220px;
+    height: 400px;
+    border: 2px solid black;
+}
