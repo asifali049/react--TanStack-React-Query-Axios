@@ -3,18 +3,6 @@ import {  fetchPlanets,  } from "../API/Api";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 
-  export interface Character {
-  id: number;
-  name: string;
-  ki: string;
-  maxKi: string;
-  race: string;
-  gender: string;
-  description: string;
-  image: string;
-  affiliation: string;
-  deletedAt: string | null;
-}
 
 
 export const Planets = () => {
@@ -29,10 +17,17 @@ export const Planets = () => {
   if (isPending) return <p>Loading...</p>;
   if (isError) return <p>Error :{error.message || "Error loading data"}</p>;
 
+  interface planets{
+    id:number,
+    image:undefined,
+    name:string,
+  }
+
+
   return (
     <div>
       <div className="Card"> 
-        {data?.map((planets) => {
+        {data?.map((planets:planets) => {
           const { id, image, name } = planets;
           return (
             <div key={id}>
@@ -40,7 +35,7 @@ export const Planets = () => {
                 <img src={image} width={120} />
                 <h2>{name}</h2>
               </NavLink>
-              <button onClick={()=>patchUpdate.mutate(id)} >UPDATE</button>
+              
             </div>
           );
         })}

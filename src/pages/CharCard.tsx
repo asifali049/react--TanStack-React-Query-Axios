@@ -31,16 +31,17 @@ export const CharCard = () => {
 
   
 
-  const delCard = useMutation({
-    mutationFn:(id)=> deleteId(id),
+const delCard = useMutation({
+  mutationFn: (id: number) => deleteId(id),
+
   onSuccess: (_, id) => {
     queryClient.setQueryData<Character[]>(["characters"], (oldData) => {
       if (!oldData) return [];
+
       return oldData.filter((char) => char.id !== id);
     });
   },
 });
-
   if (isPending) return <p>Loading...</p>;
   if (isError) return <p>Error :{error.message || "Error loading data"}</p>;
 
