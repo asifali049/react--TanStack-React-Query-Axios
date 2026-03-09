@@ -4,55 +4,67 @@ const dragonApi = axios.create({
   baseURL: "https://dragonball-api.com/api",
 });
 
-export const fetchCharacters = async (pageNumber:number) => {
+
+// fetch characters
+export const fetchCharacters = async (pageNumber: number) => {
+  return dragonApi.get(`/characters?page=${pageNumber}`);
+};
+
+
+// fetch planets
+export const fetchPlanets = async (pageNumber: number) => {
   try {
-    const res = await dragonApi(`/characters?page=${pageNumber}&limit=10`);
+    const res = await dragonApi.get(`/planets?page=${pageNumber}&limit=10`);
     return res.status === 200 ? res.data.items : [];
-  } catch (error) {
+  } catch (error: unknown) {
     console.log(error);
+    return [];
   }
 };
 
-export const fetchPlanets = async (pageNumber:number) => {
-  try {
-    const res = await dragonApi(`/planets?page=${pageNumber}&limit=10`);
-    return res.status === 200 ? res.data.items : [];
-  } catch (error) {
-    console.log(error);
-  }
-};
 
-export const fetchPlanetById = async (id:number) => {
+// planet by id
+export const fetchPlanetById = async (id: number) => {
   try {
     const res = await dragonApi.get(`/planets/${id}`);
-    return res.status === 200 ? res.data : [];
-  } catch (error) {
+    return res.status === 200 ? res.data : null;
+  } catch (error: unknown) {
     console.log(error);
+    return null;
   }
 };
 
-export const fetchCharById = async (id:number) => {
+
+// character by id
+export const fetchCharById = async (id: number) => {
   try {
     const res = await dragonApi.get(`/characters/${id}`);
-    return res.status === 200 ? res.data : [];
-  } catch (error) {
+    return res.status === 200 ? res.data : null;
+  } catch (error: unknown) {
     console.log(error);
+    return null;
   }
 };
 
 
-export const patchCard = (id:number) =>{
-  return dragonApi.patch(`/planets/${id}`)
-}
-export const deleteId = async (id:number) => {
+// update
+export const patchCard = (id: number, data: any) => {
+  return dragonApi.patch(`/planets/${id}`, data);
+};
+
+
+// delete
+export const deleteId = (id: number) => {
   return dragonApi.delete(`/characters/${id}`);
 };
 
 
-export const fetchCharINScroll = async ({ pageParam = 1 }) => {
-  const res = await axios.get(
-    `https://dragonball-api.com/api/characters?page=${pageParam}&limit=10`
-  );
-
+// infinite scroll
+export const fetchCharINScroll = async ({
+  pageParam = 1,
+}: {
+  pageParam: number;
+}) => {
+  const res = await dragonApi.get(`/characters?page=${pageParam}&limit=10`);
   return res.data.items;
 };

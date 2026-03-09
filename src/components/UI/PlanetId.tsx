@@ -7,8 +7,7 @@ export const PlanetId = () => {
 
   const { data, isPending, isError, error } = useQuery({
     queryKey: ["planets", id],
-    queryFn: () => fetchPlanetById(id),
-  });
+    queryFn: () => fetchPlanetById(Number(id))  });  
 
   console.log(data);
 

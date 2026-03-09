@@ -6,7 +6,7 @@ export const CharId = () => {
   const { id } = useParams();
   const { data, isPending, isError, error } = useQuery({
     queryKey: ["characters", id],
-    queryFn: () => fetchCharById(id),
+    queryFn: () => fetchCharById(Number(id))
   });
   console.log(data);
 
