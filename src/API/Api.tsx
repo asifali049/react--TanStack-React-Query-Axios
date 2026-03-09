@@ -4,7 +4,7 @@ const dragonApi = axios.create({
   baseURL: "https://dragonball-api.com/api",
 });
 
-export const fetchCharacters = async (pageNumber) => {
+export const fetchCharacters = async (pageNumber:number) => {
   try {
     const res = await dragonApi(`/characters?page=${pageNumber}&limit=10`);
     return res.status === 200 ? res.data.items : [];
@@ -13,7 +13,7 @@ export const fetchCharacters = async (pageNumber) => {
   }
 };
 
-export const fetchPlanets = async (pageNumber) => {
+export const fetchPlanets = async (pageNumber:number) => {
   try {
     const res = await dragonApi(`/planets?page=${pageNumber}&limit=10`);
     return res.status === 200 ? res.data.items : [];
@@ -22,7 +22,7 @@ export const fetchPlanets = async (pageNumber) => {
   }
 };
 
-export const fetchPlanetById = async (id) => {
+export const fetchPlanetById = async (id:number) => {
   try {
     const res = await dragonApi.get(`/planets/${id}`);
     return res.status === 200 ? res.data : [];
@@ -31,7 +31,7 @@ export const fetchPlanetById = async (id) => {
   }
 };
 
-export const fetchCharById = async (id) => {
+export const fetchCharById = async (id:number) => {
   try {
     const res = await dragonApi.get(`/characters/${id}`);
     return res.status === 200 ? res.data : [];
@@ -41,10 +41,10 @@ export const fetchCharById = async (id) => {
 };
 
 
-export const patchCard = (id) =>{
+export const patchCard = (id:number) =>{
   return dragonApi.patch(`/planets/${id}`)
 }
-export const deleteId = async (id) => {
+export const deleteId = async (id:number) => {
   return dragonApi.delete(`/characters/${id}`);
 };
 

@@ -3,6 +3,21 @@ import { deleteId, fetchCharacters } from "../API/Api";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 
+  export interface Character {
+  id: number;
+  name: string;
+  ki: string;
+  maxKi: string;
+  race: string;
+  gender: string;
+  description: string;
+  image: string;
+  affiliation: string;
+  deletedAt: string | null;
+}
+
+
+
 export const CharCard = () => {
   const [pageNumber,setPageNumber]  =  useState(1)
 
@@ -14,12 +29,17 @@ export const CharCard = () => {
 
   const queryClient = useQueryClient()
 
+  
+
   const delCard = useMutation({
     mutationFn:(id)=> deleteId(id),
-    onSuccess:(data,id)=>{
-      queryClient.setQueryData()
-    }
-  })
+  onSuccess: (_, id) => {
+    queryClient.setQueryData<Character[]>(["characters"], (oldData) => {
+      if (!oldData) return [];
+      return oldData.filter((char) => char.id !== id);
+    });
+  },
+});
 
   if (isPending) return <p>Loading...</p>;
   if (isError) return <p>Error :{error.message || "Error loading data"}</p>;
@@ -27,7 +47,7 @@ export const CharCard = () => {
   return (
     <div>
       <div className="Card">
-        {data?.map((char) => {
+        {data?.map((char:Character) => {
           const { id, image, name, race, gender, ki, maxKi, affiliation } =
             char;
 

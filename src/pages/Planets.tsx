@@ -3,6 +3,20 @@ import {  fetchPlanets,  } from "../API/Api";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 
+  export interface Character {
+  id: number;
+  name: string;
+  ki: string;
+  maxKi: string;
+  race: string;
+  gender: string;
+  description: string;
+  image: string;
+  affiliation: string;
+  deletedAt: string | null;
+}
+
+
 export const Planets = () => {
   const [pageNumber, setPageNumber] = useState(1);
 
@@ -11,10 +25,6 @@ export const Planets = () => {
     queryFn: () => fetchPlanets(pageNumber),
     placeholderData:keepPreviousData
   });
-
-
-
-
 
   if (isPending) return <p>Loading...</p>;
   if (isError) return <p>Error :{error.message || "Error loading data"}</p>;
